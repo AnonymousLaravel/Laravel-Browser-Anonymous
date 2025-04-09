@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -64,3 +65,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# Laravel-Browser-Anonymous
+Browser PHP con Laravel Autori: ? e ? Tecnologie utilizzate: Laravel, PHP, SQL  🔹 Descrizione Questo progetto consiste nello sviluppo di un browser web personalizzato basato su PHP utilizzando il framework Laravel. L'obiettivo è creare un'applicazione che consenta agli utenti di navigare, gestire segnalibri, cronologia e impostazioni avanzate
+>>>>>>> 39e2df05ca76282d23922ce36223bbec91342e8b
