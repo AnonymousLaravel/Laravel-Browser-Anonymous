@@ -6,6 +6,7 @@
     <title>Laravel Browser</title>
     <!-- Includi Tailwind CSS da CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto p-4">
