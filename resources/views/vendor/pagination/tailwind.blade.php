@@ -33,17 +33,17 @@
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between gap-6">
             <div>
                 <p class="text-sm text-gray-700 dark:text-gray-400">
-                    {!! __('Showing') !!}
+                    {!! __('Mostrando dal ') !!}
                     @if ($paginator->firstItem())
                         <span class="font-semibold">{{ $paginator->firstItem() }}</span>
-                        {!! __('to') !!}
+                        {!! __('al') !!}
                         <span class="font-semibold">{{ $paginator->lastItem() }}</span>
                     @else
                         {{ $paginator->count() }}
                     @endif
-                    {!! __('of') !!}
+                    {!! __('dei') !!}
                     <span class="font-semibold">{{ $paginator->total() }}</span>
-                    {!! __('results') !!}
+                    {!! __('risultati') !!}
                 </p>
             </div>
 
