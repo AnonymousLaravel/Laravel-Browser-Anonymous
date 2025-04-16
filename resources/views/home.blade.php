@@ -1,50 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
-            <h1 class="text-4xl font-extrabold text-center text-blue-600 mb-8">
-                🔍 Laravel Browser
-            </h1>
+<div class="max-w-4xl mx-auto px-6 py-10">
+    <!-- Titolo -->
+    <h1 class="text-4xl font-semibold text-gray-800 mb-8 tracking-tight">Laravel Browser</h1>
 
-            <form action="{{ route('home') }}" method="GET" class="flex flex-col sm:flex-row gap-4 mb-6">
-                <input type="text" name="q" placeholder="Cerca una pagina o un termine..."
-                    class="flex-1 p-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    value="{{ request('q') }}">
-                <button type="submit"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-md">
-                    Cerca
-                </button>
-            </form>
+    <!-- Form di Ricerca -->
+    <form action="{{ route('home') }}" method="GET" class="flex items-center gap-2 mb-6">
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="Cerca nel web..." 
+            value="{{ request('q') }}"
+            class="flex-grow px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+        >
+        <button 
+            type="submit" 
+            class="bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition-all"
+        >
+            Cerca
+        </button>
+    </form>
 
-            @if(request('q'))
-                @if($results->isNotEmpty())
-                    <h2 class="text-2xl font-semibold mb-4 text-gray-700">
-                        Risultati per "{{ request('q') }}"
-                    </h2>
-                    <div class="space-y-4">
-                        @foreach($results as $page)
-                            <div class="p-4 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors">
-                                <a href="{{ $page->url }}" target="_blank" class="text-lg font-medium text-blue-600 hover:underline">
-                                    {{ $page->title }}
-                                </a>
-                                <div class="text-sm text-gray-500 mt-1">
-                                    {{ $page->url }}
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+    <!-- Risultati -->
+    @if(request('q'))
+        @if($results->isNotEmpty())
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Risultati per <span class="text-blue-600">"{{ request('q') }}"</span></h2>
+            <ul class="space-y-6">
+                @foreach($results as $page)
+                    <li class="p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition">
+                        <a href="{{ $page->url }}" target="_blank" class="text-blue-600 text-lg font-medium hover:underline">
+                            {{ $page->title }}
+                        </a>
+                        <p class="text-sm text-gray-500 mt-1">{{ $page->url }}</p>
+                    </li>
+                @endforeach
+            </ul>
 
-                    <!-- PAGINAZIONE -->
-                    <div class="mt-8">
-                        {{ $results->appends(['q' => request('q')])->links('vendor.pagination.tailwind') }}
-                    </div>
-                @else
-                    <div class="text-center text-red-500 font-semibold mt-6">
-                        Nessun risultato trovato per "{{ request('q') }}".
-                    </div>
-                @endif
-            @endif
-        </div>
-    </div>
+            <!-- Paginazione -->
+            <div class="mt-10 flex justify-center">
+                {{ $results->appends(['q' => request('q')])->links('vendor.pagination.tailwind') }}
+            </div>
+        @else
+            <p class="text-gray-500">Nessun risultato trovato per <strong>"{{ request('q') }}"</strong>.</p>
+        @endif
+    @endif
+</div>
 @endsection
