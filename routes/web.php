@@ -1,11 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SearchController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/',function (){
-    return view('form-registration');
-});
+Route::get('/', [SearchController::class, 'index'])->name('home');
