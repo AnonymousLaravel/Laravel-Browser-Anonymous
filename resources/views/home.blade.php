@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<br>
 <div class="max-w-4xl mx-auto px-6 py-10">
     <!-- Header with Theme Toggle -->
     <div class="flex justify-between items-center mb-8">
