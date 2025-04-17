@@ -2,175 +2,208 @@
 * {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
-body{
-    font-family: 'Inter', sans-serif;
-    /* Inter font for better readability */
-    line-height: 1.6;
-    /* Improved line height */
-}
 
 /* === LIGHT MODE === */
 
-/* Body */
-body {
-    background-color: #f7fafc;
-    /* Light background */
-    color: #2d3748;
-    /* Dark text */
-}
-
-/* Links */
-a {
-    color: #3182ce;
-    /* Standard blue */
+/* ----------------------------------------------------------------------------
+   Font & Base
+   ---------------------------------------------------------------------------- */
+   body {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    background-color: #f7fafc; /* Light background */
+    color: #2d3748;            /* Dark text */
+  }
+  
+  /* ----------------------------------------------------------------------------
+     General Transitions
+     ---------------------------------------------------------------------------- */
+  * {
+    transition: background-color 0.3s ease,
+                color            0.3s ease,
+                border-color     0.3s ease,
+                box-shadow       0.3s ease,
+                transform        0.3s ease;
+  }
+  
+  /* ----------------------------------------------------------------------------
+     LIGHT MODE
+     ---------------------------------------------------------------------------- */
+  /* Links */
+  a {
+    color: #586068;
     text-decoration: none;
-}
-
-a:hover {
+  }
+  a:hover {
     text-decoration: underline;
-}
-
-/* Headings */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
     color: #2d3748;
-}
-
-/* Containers, Cards, and Sections */
-.container,
-div.card,
-div.max-w-4xl,
-li {
+    font-weight: 600;
+    margin-bottom: 0.5em;
+  }
+  
+  /* Containers, Cards, Sections, List Items */
+  .container,
+  div.card,
+  div.max-w-4xl,
+  li {
     background-color: #ffffff;
-    /* White background for light mode */
     border: 1px solid #e2e8f0;
-    /* Light gray border */
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow */
-}
-
-/* Buttons */
-button {
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    padding: 1rem;
+  }
+  
+  /* Hover effect on list items */
+  li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  /* Buttons */
+  button {
     background-color: #e2e8f0;
     border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
     color: #2d3748;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow for button */
-}
-
-button:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  button:hover {
     background-color: #cbd5e0;
-}
-
-/* Inputs */
-input[type="text"] {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.5);
+  }
+  
+  /* Inputs */
+  input[type="text"] {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
     color: #2d3748;
     padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-}
-
-/* Pagination */
-nav[aria-label="Pagination Navigation"],
-.pagination {
+    border-radius: 0.75rem;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.3);
+  }
+  
+  /* Pagination */
+  nav[aria-label="Pagination Navigation"],
+  .pagination {
     background-color: #f7fafc;
     border-top: 1px solid #e2e8f0;
-}
-
-/* === DARK MODE === */
-
-/* Body */
-.dark body {
+    padding: 1rem;
+  }
+  
+  /* ----------------------------------------------------------------------------
+     DARK MODE
+     ---------------------------------------------------------------------------- */
+  .dark body {
     background-color: #121212;
-    /* Dark background for "night mode" */
     color: #e5e5e5;
-    /* Light text for better readability */
-}
-
-/* Links */
-.dark a {
+  }
+  
+  /* Links */
+  .dark a {
     color: #63b3ed;
-    /* Lighter blue for dark theme */
-}
-
-.dark a:hover {
+  }
+  .dark a:hover {
     color: #bee3f8;
-    /* Slightly lighter on hover */
-}
-
-/* Headings */
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5,
-.dark h6 {
+  }
+  
+  /* Headings */
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
     color: #e5e5e5;
-    /* Lighter text for headings */
-}
-
-/* Containers, Cards, and Sections */
-.dark .container,
-.dark div.card,
-.dark div.max-w-4xl,
-.dark li {
-    background-color: rgba(33, 33, 33, 0.9);
-    /* Dark background with transparency for dark mode */
+  }
+  
+  /* Containers, Cards, Sections, List Items */
+  .dark .container,
+  .dark div.card,
+  .dark div.max-w-4xl,
+  .dark li {
+    background-color: rgba(33,33,33,0.9);
     border-color: #444444;
-    /* Darker border for contrast */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    /* Dark shadow for elevated effect */
-}
-
-/* Buttons */
-.dark button {
-    background-color: rgba(66, 66, 66, 0.8);
-    /* Transparent dark button background */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    padding: 1rem;
+  }
+  
+  /* Hover effect on list items */
+  .dark li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    background-color: rgba(33,33,33,1);
+  }
+  
+  /* Buttons */
+  .dark button {
+    background-color: rgba(66,66,66,0.8);
     color: #e5e5e5;
-    /* Light button text */
     border: 1px solid #444444;
-    /* Dark border */
-}
-
-.dark button:hover {
+  }
+  .dark button:hover {
     background-color: #4a5568;
-    /* Lighter dark on hover */
-    border-color: #282d34;
-}
-
-/* Inputs */
-.dark input[type="text"] {
-    background-color: rgba(66, 66, 66, 0.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  .dark button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99,179,237,0.5);
+  }
+  
+  /* Inputs */
+  .dark input[type="text"] {
+    background-color: rgba(66,66,66,0.8);
     border-color: #444444;
     color: #e5e5e5;
-}
-
-/* Pagination */
-.dark nav[aria-label="Pagination Navigation"],
-.dark .pagination {
-    background-color: rgba(45, 45, 45, 0.9);
-    /* Transparent dark background */
+  }
+  .dark input[type="text"]:focus {
+    outline: none;
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99,179,237,0.3);
+  }
+  
+  /* Pagination */
+  .dark nav[aria-label="Pagination Navigation"],
+  .dark .pagination {
+    background-color: rgba(45,45,45,0.9);
     border-top-color: #4a5568;
-}
-
-.dark nav[aria-label="Pagination Navigation"] a,
-.dark .pagination a {
-    background-color: rgba(66, 66, 66, 0.8);
+  }
+  .dark nav[aria-label="Pagination Navigation"] a,
+  .dark .pagination a {
+    background-color: rgba(66,66,66,0.8);
     border: 1px solid #444444;
     color: #e5e5e5;
-}
-
-.dark nav[aria-label="Pagination Navigation"] a:hover,
-.dark .pagination a:hover {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+  }
+  .dark nav[aria-label="Pagination Navigation"] a:hover,
+  .dark .pagination a:hover {
     background-color: #2d3748;
-}
+    color: #e5e5e5;
+  }
+  
+  /* ----------------------------------------------------------------------------
+     Utility Classes (optional)
+     ---------------------------------------------------------------------------- */
+  .text-center { text-align: center; }
+  .mb-4       { margin-bottom: 1rem; }
+  .mb-6       { margin-bottom: 1.5rem; }
+  .mt-4       { margin-top: 1rem; }
+  .mt-6       { margin-top: 1.5rem; }
+  .p-4        { padding: 1rem; }
+  .p-6        { padding: 1.5rem; }
+  .rounded    { border-radius: 0.75rem; }
+  .shadow-sm  { box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  .shadow-md  { box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .shadow-lg  { box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+  .transition { transition: all 0.3s ease; }
+  
