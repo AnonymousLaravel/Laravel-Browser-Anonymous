@@ -2,7 +2,7 @@
 
 @section('content')
 <br>
-<div class="max-w-4xl mx-auto px-6 py-10">
+<div class="max-w-4xl mx-auto px-6 py-10 bg-white">
     <!-- Header with Theme Toggle -->
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-4xl font-semibold text-gray-800 dark:text-gray-100 tracking-tight">Laravel Browser</h1>
