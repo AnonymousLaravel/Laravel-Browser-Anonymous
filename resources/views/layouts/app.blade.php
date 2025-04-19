@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laravel Browser</title>
-    
+
     <!-- Tailwind CSS da CDN (opzionale se stai usando Vite) -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
+
     <!-- Il tuo CSS compilato -->
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
 </head>
@@ -17,4 +18,5 @@
     <div class="container mx-auto p-4">
         @yield('content')
     </div>
+</body>
 </html>
