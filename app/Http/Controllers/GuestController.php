@@ -20,7 +20,7 @@ class GuestController extends Controller
                 ->paginate(10); // ✅ usa paginate invece di get()
         }
 
-        return view('home', compact('results'));
+        return view('guest_home', compact('results'));
     }
 
 }
