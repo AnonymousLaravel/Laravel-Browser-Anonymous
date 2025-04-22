@@ -6,7 +6,7 @@
     <div class="login-card">
         <div class="login-header">
             <h1 class="login-title">Faairu</h1>
-            <h2 class="login-subtitle">Sign in</h2>
+            <h2 class="login-subtitle">Accedi</h2>
         </div>
 
         @if($errors->any())
@@ -33,17 +33,17 @@
             <div class="flex items-center justify-between">
                 <div class="checkbox-group">
                     <input type="checkbox" name="remember" id="remember">
-                    <label for="remember" class="checkbox-label">Keep me signed in</label>
+                    <label for="remember" class="checkbox-label">Ricordami</label>
                 </div>
-                <a href="#" class="footer-link">Forgot password?</a>
+                <a href="#" class="footer-link">Password dimenticata?</a>
             </div>
 
-            <button type="submit" class="login-button">Sign in</button>
+            <button type="submit" class="login-button">Accedi</button>
         </form>
 
         <div class="login-footer">
-            <span class="footer-text">Don't have an account?</span>
-            <a href="{{ route('register') }}" class="footer-link">Sign up</a>
+            <span class="footer-text">Non hai un account?</span>
+            <a href="{{ route('register') }}" class="footer-link">Registrati</a>
         </div>
     </div>
 </div>
