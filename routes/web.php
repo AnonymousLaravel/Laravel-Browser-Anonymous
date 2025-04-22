@@ -5,14 +5,10 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 
-/*
-|--------------------------------------------------------------------------
-| 1) Root pubblica (accessibile a tutti)
-|--------------------------------------------------------------------------
-*/
+
 Route::get('/', function () {
-    return view('welcome');      // o la tua landing page genericA
-})->name('welcome');
+    return view('guest_home');      // o la tua landing page genericA
+})->name('guest_home');
 
 /*
 |--------------------------------------------------------------------------
