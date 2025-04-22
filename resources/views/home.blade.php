@@ -41,7 +41,7 @@
 
         </div>
 
-        <form action="{{ route('guest_home') }}" method="GET" class="flex items-center gap-2 mb-6">
+        <form action="{{ route('home') }}" method="GET" class="flex items-center gap-2 mb-6">
             <input type="text" name="q" placeholder="Cerca nel web..." value="{{ request('q') }}"
                 class="flex-grow px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
             <button type="submit"

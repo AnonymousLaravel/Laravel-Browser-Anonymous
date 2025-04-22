@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GuestController;
 use GuzzleHttp\Middleware;
 
-Route::get('/',[GuestController::class, 'index'])->name('guest');
+Route::get('/',[GuestController::class, 'index'])->name('guest_home');
 /*
 |--------------------------------------------------------------------------
 | 2) Rotte guest (solo utenti NON loggati)
