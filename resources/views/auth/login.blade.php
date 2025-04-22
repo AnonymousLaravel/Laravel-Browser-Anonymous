@@ -23,7 +23,7 @@
             @csrf
             
             <div class="form-group">
-                <input id="email" name="email" type="email" required autofocus class="form-input" placeholder="Email Address">
+                <input id="email" name="email" type="email" required autofocus class="form-input" placeholder="Email">
             </div>
 
             <div class="form-group">
