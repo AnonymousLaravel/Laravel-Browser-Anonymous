@@ -4,23 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Page;
+use Illuminate\Support\Facades\Auth; 
 
 class GuestController extends Controller
 {
-    // Mostra la pagina di ricerca (home page)
     public function index(Request $request)
     {
-        $query = $request->input('q');
+        if (Auth::check()) {
+            return redirect()->route('home'); // solo se sei loggato
+        }
 
+        $query = $request->input('q');
         $results = collect(); // default vuoto
 
         if ($query) {
             $results = Page::where('title', 'like', '%' . $query . '%')
                 ->orWhere('url', 'like', '%' . $query . '%')
-                ->paginate(10); // ✅ usa paginate invece di get()
+                ->paginate(10);
         }
 
         return view('guest_home', compact('results'));
     }
-
 }
