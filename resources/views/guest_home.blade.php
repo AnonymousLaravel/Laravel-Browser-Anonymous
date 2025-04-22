@@ -44,9 +44,8 @@
 
         @if(request('q'))
             @if($results->isNotEmpty())
-                <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
-                    Risultati per <span class="text-blue-600 dark:text-blue-400">"{{ request('q') }}"</span>
-                </h2>
+                <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Risultati per <span
+                        class="text-blue-600 dark:text-blue-400">"{{ request('q') }}"</span></h2>
                 <ul class="space-y-6">
                     @foreach($results as $page)
                         <li
@@ -60,13 +59,16 @@
                     @endforeach
                 </ul>
 
+                <!-- Pagination -->
+                 <div class="pagination">
                 <div class="mt-10 flex justify-center">
                     {{ $results->appends(['q' => request('q')])->links('vendor.pagination.tailwind') }}
                 </div>
             @else
-                <p>Nessun risultato trovato per <strong>"{{ request('q') }}"</strong>.</p>
+                <p >Nessun risultato trovato per <strong>"{{ request('q') }}"</strong>.</p>
             @endif
         @endif
+        </div>
     </div>
 
     <script>
