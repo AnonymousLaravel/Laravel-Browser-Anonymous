@@ -3,6 +3,10 @@
 @section('content')
     <div class="max-w-4xl mx-auto px-6 py-10">
         <div class="flex justify-between items-center mb-8">
+        <a href="{{ route('login') }}"
+           class="bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-xl shadow hover:bg-green-700 dark:hover:bg-green-800 transition-all">
+            Login
+        </a>
             <div class="flex justify-center items-center h-full">
                 <h1 class="text-center text-4xl font-semibold text-gray-800 dark:text-gray-100 tracking-tight">
                     Laravel Browser
