@@ -1,29 +1,26 @@
 <?php
-use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 
+// 1) ROTTE PER UTENTI GUEST (non loggati)
+Route::middleware('guest')->group(function () {
+    // Login
+    Route::get('login',  [AuthController::class, 'show'])->name('login');
+    Route::post('login', [AuthController::class, 'login']);
 
-// Home protetta
-Route::get('/', [SearchController::class, 'index'])
-     ->middleware('auth')
-     ->name('home');
+    // Registrazione
+    Route::get('register',  [RegisterController::class, 'show'])->name('register');
+    Route::post('register', [RegisterController::class, 'register']);
+});
 
-// Login
-Route::get('login', [AuthController::class, 'show'])
-     ->middleware('guest')
-     ->name('login'); // ← nome corretto per i redirect interni
-Route::post('login', [AuthController::class, 'login'])
-     ->middleware('guest');
-Route::post('logout', [AuthController::class, 'logout'])
-     ->middleware('auth')
-     ->name('logout');
+// 2) ROTTE PER UTENTI AUTENTICATI
+Route::middleware('auth')->group(function () {
+    // Home
+    Route::get('/', [SearchController::class, 'index'])->name('home');
 
-// Registrazione
-Route::get('register', [RegisterController::class, 'show'])
-     ->middleware('guest')
-     ->name('register');
-Route::post('register', [RegisterController::class, 'register'])
-     ->middleware('guest');
+    // Logout
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+});
