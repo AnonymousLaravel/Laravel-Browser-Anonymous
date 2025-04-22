@@ -7,23 +7,39 @@ use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
-| Rotte pubbliche
+| 1) Root pubblica (accessibile a tutti)
 |--------------------------------------------------------------------------
-| Qui definiamo tutte le rotte accessibili senza login.
 */
-
-// Pagina iniziale aperta a tutti
 Route::get('/', function () {
-    return view('welcome');    // o quello che vuoi mostrare a tutti
+    return view('welcome');      // o la tua landing page genericA
 })->name('welcome');
 
+/*
+|--------------------------------------------------------------------------
+| 2) Rotte guest (solo utenti NON loggati)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('guest')->group(function () {
+    // mostra form di login
+    Route::get('/login',  [AuthController::class, 'show'])->name('login');
+    // processa login
+    Route::post('/login', [AuthController::class, 'login']);
 
+    // mostra form di registrazione
+    Route::get('/register',  [RegisterController::class, 'show'])->name('register');
+    // processa registrazione
+    Route::post('/register', [RegisterController::class, 'register']);
+});
 
-
+/*
+|--------------------------------------------------------------------------
+| 3) Rotte auth (solo utenti loggati)
+|--------------------------------------------------------------------------
+*/
 Route::middleware('auth')->group(function () {
-    // Dashboard / Home vera e propria — solo loggati
+    // home interna protetta
     Route::get('/home', [SearchController::class, 'index'])->name('home');
 
-    // Logout
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    // logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
