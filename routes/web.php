@@ -4,12 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\GuestController;
+use GuzzleHttp\Middleware;
 
-
-Route::get('/', function () {
-    return view('guest_home');      // o la tua landing page genericA
-})->name('guest_home');
-
+Route::get('/',[GuestController::class, 'index'])->name('guest');
 /*
 |--------------------------------------------------------------------------
 | 2) Rotte guest (solo utenti NON loggati)
