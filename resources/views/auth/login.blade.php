@@ -35,7 +35,7 @@
                     <input type="checkbox" name="remember" id="remember">
                     <label for="remember" class="checkbox-label">Ricordami</label>
                 </div>
-                <a href="#" class="footer-link">Password dimenticata?</a>
+                <a href="{{ route('password.request') }}" class="footer-link">Password dimenticata?</a>
             </div>
 
             <button type="submit" class="login-button">Accedi</button>

@@ -5,6 +5,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use GuzzleHttp\Middleware;
 
 Route::get('/',[GuestController::class, 'index'])->name('guest_home');
@@ -37,3 +39,17 @@ Route::middleware('auth')->group(function () {
     // logout
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+
+
+// Mostra form per inserire email
+Route::get('password/forgot', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+
+// Invia email con link di reset
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Mostra form per inserire nuova password (dopo aver cliccato nel link)
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+
+// Salva nuova password
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
