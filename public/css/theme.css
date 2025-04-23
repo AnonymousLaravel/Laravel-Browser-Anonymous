@@ -39,45 +39,70 @@ li:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Inputs */
-input[type="text"] {
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
-  color: #111827;
-  padding: 0.75rem 1rem;
-  border-radius: 9999px;
+
+#menu-dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: .5rem;
+  width: 11rem;
+  background-color: #fff;
+  border-radius: 0.75rem;         /* bordo rotondo del contenitore */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden;               /* taglia gli angoli dei figli */
+  transition: opacity .3s ease, transform .3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+/* Stato visibile */
+#menu-dropdown.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Voci del menu */
+#menu-dropdown a,
+#menu-dropdown button {
+  display: block;
+  text-decoration: none;
   width: 100%;
-}
-
-input[type="text"]:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}
-
-/* Buttons */
-button {
-  background-color: #3b82f6;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-weight: 600;
-}
-
-button:hover {
-  background-color: #2563eb;
-  transform: scale(1.03);
-}
-
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: #333;
+  transition: background .2s ease, color .2s ease;
 }
 
 
-/* Pagination */
+
+/* Hover: sfondo scuro e testo chiaro */
+#menu-dropdown a:hover,
+#menu-dropdown button:hover {
+  background-color: #f0f4f8;
+  color: #111;
+  text-decoration: none;
+}
+
+/* Dark mode */
+.dark #menu-dropdown {
+  background-color: #1f2937;
+}
+.dark #menu-dropdown a,
+.dark #menu-dropdown button {
+  color: #e5e7eb;
+  text-decoration: none;
+}
+.dark #menu-dropdown a:hover,
+.dark #menu-dropdown button:hover {
+  background-color: #374151;
+  color: #fff;
+}
+
+
 .pagination {
   display: flex;
   justify-content: center;

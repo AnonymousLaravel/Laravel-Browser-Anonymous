@@ -7,34 +7,38 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\LogController;
 use GuzzleHttp\Middleware;
 
-Route::get('/',[GuestController::class, 'index'])->name('guest_home');
+
+//basica home
+Route::get('/', [GuestController::class, 'index'])->name('guest_home');
 
 
 Route::middleware('guest')->group(function () {
     // mostra form di login
-    Route::get('/login',  [AuthController::class, 'show'])->name('login');
+    Route::get('/login', [AuthController::class, 'show'])->name('login');
     // processa login
     Route::post('/login', [AuthController::class, 'login']);
-
     // mostra form di registrazione
-    Route::get('/register',  [RegisterController::class, 'show'])->name('register');
+    Route::get('/register', [RegisterController::class, 'show'])->name('register');
     // processa registrazione
     Route::post('/register', [RegisterController::class, 'register']);
 });
 
-/*
-|--------------------------------------------------------------------------
-| 3) Rotte auth (solo utenti loggati)
-|--------------------------------------------------------------------------
-*/
-Route::middleware('auth')->group(function () {
-    // home interna protetta
-    Route::get('/home', [SearchController::class, 'index'])->name('home');
 
-    // logout
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [SearchController::class, 'index'])->name('home');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    // Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/logs', [LogController::class, 'index'])->name('logs');
+
+    // cancella tutta la cronologia
+    Route::delete('/logs/clear', [LogController::class, 'clear'])->name('logs.clear');
+    
+    // elimina un singolo record
+    Route::delete('/logs/{log}', [LogController::class, 'destroy'])->name('logs.delete');
+
 });
 
 
