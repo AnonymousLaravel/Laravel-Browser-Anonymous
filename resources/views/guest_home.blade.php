@@ -1,38 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-4xl mx-auto px-6 py-10">
-        <div class="flex justify-between items-center mb-8">
-        <a href="{{ route('login') }}"
-           class="bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-xl shadow hover:bg-green-700 dark:hover:bg-green-800 transition-all">
+
+    <div class="flex justify-center mt-12 mb-8">
+        <a href="{{ route('login') }}" class="text-xl
+                bg-green-600 dark:bg-red-900   /* default chiaro/scuro */
+                text-white
+                px-8 py-4 rounded-2xl shadow-lg
+                transform transition-all duration-200
+                hover:text-black                 /* testo nero in hover */
+                hover:bg-green-700               /* sfondo verde più scuro in chiaro */
+                dark:bg-green-800          /* sfondo ancora più scuro in dark */
+                hover:no-underline">
             Login
         </a>
+    </div>
+
+
+
+    <div class="max-w-4xl mx-auto px-6 py-10">
+        <div class="flex justify-between items-center mb-8">
             <div class="flex justify-center items-center h-full">
                 <h1 class="text-center text-4xl font-semibold text-gray-800 dark:text-gray-100 tracking-tight">
                     Laravel Browser
                 </h1>
             </div>
             <button id="theme-toggle" class="theme-toggle w-10 h-10 flex items-center justify-center p-0 rounded-full
-                    bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600
-                    transition-colors">
+                                        bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600
+                                        transition-colors">
                 <!-- Icona Sole -->
                 <svg id="theme-icon-light" class="w-6 h-6 text-black dark:text-white hidden" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3
-                           m15.364 6.364l-.707-.707
-                           M6.343 6.343l-.707-.707
-                           m12.728 0l-.707.707
-                           M6.343 17.657l-.707.707" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3
+                                               m15.364 6.364l-.707-.707
+                                               M6.343 6.343l-.707-.707
+                                               m12.728 0l-.707.707
+                                               M6.343 17.657l-.707.707" />
                 </svg>
 
                 <!-- Icona Luna -->
                 <svg id="theme-icon-dark" class="w-6 h-6 text-black dark:text-white" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                        d="M20.354 15.354A9 9 0 018.646 3.646
-                           9.003 9.003 0 0012 21
-                           a9.003 9.003 0 008.354-5.646z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646
+                                               9.003 9.003 0 0012 21
+                                               a9.003 9.003 0 008.354-5.646z" />
                 </svg>
             </button>
         </div>
@@ -55,7 +66,7 @@
                         <li
                             class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition bg-white dark:bg-gray-800">
                             <a href="{{ $page->url }}" target="_blank"
-                                class="text-blue-600 dark:text-blue-400 text-lg font-medium hover:underline">
+                                class="text-blue-600 dark:text-blue-400 text-lg font-medium hover:no-underline">
                                 {{ $page->title }}
                             </a>
                             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $page->url }}</p>
@@ -64,12 +75,12 @@
                 </ul>
 
                 <!-- Pagination -->
-                 <div class="pagination">
-                <div class="mt-10 flex justify-center">
-                    {{ $results->appends(['q' => request('q')])->links('vendor.pagination.tailwind') }}
-                </div>
+                <div class="pagination">
+                    <div class="mt-10 flex justify-center">
+                        {{ $results->appends(['q' => request('q')])->links('vendor.pagination.tailwind') }}
+                    </div>
             @else
-                <p >Nessun risultato trovato per <strong>"{{ request('q') }}"</strong>.</p>
+                <p>Nessun risultato trovato per <strong>"{{ request('q') }}"</strong>.</p>
             @endif
         @endif
         </div>

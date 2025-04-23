@@ -10,11 +10,8 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use GuzzleHttp\Middleware;
 
 Route::get('/',[GuestController::class, 'index'])->name('guest_home');
-/*
-|--------------------------------------------------------------------------
-| 2) Rotte guest (solo utenti NON loggati)
-|--------------------------------------------------------------------------
-*/
+
+
 Route::middleware('guest')->group(function () {
     // mostra form di login
     Route::get('/login',  [AuthController::class, 'show'])->name('login');
