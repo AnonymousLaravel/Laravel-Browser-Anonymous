@@ -50,7 +50,7 @@
                 <form action="{{ route('logs.clear') }}" method="POST"
                     onsubmit="return confirm('Sei sicuro di voler cancellare tutta la cronologia?');">
                     @csrf
-                    @method('DELETE') <!-- Aggiungi questa riga -->
+                    @method('DELETE') 
                     <button type="submit"
                         class="inline-flex items-center px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg shadow transition">
                         Cancella tutto
