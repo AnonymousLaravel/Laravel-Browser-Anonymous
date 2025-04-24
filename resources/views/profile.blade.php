@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <meta name="csrf-token" content="{{ csrf_token() }}">  <!--  cross site request forgery token -->
   <title>User Profile</title>
-  <link rel="stylesheet" href="profile.css" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -78,6 +79,31 @@
   </style>
 </head>
 <body>
+    
+ {{-- Dropdown Menu Button --}}
+ <div class="absolute top-4 right-4 z-50">
+        <button id="menu-toggle"
+            class="w-10 h-10 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+            <svg class="w-6 h-6 text-gray-800 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <div id="menu-dropdown"
+            class="hidden absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-xl shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300">
+            <a href="{{route('profile.edit')}}"
+                class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Profile</a>
+            <a href="{{ route('home') }}"
+                class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Home</a>
+            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                @csrf
+                <button type="submit"
+                    class="w-full text-left px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+
   <div class="profile-container">
     <h2>Aggiorna il profilo</h2>
 
@@ -90,7 +116,6 @@
       <small id="email-error" class="error"></small>
 
       <button type="submit" class="btn">Salva</button>
-      <a href="{{ route('home') }}" class="btn" style="display:block; text-align:center; margin-top:1rem;">Torna alla Home</a>
     </form>
 
     <div id="status" class="status-msg"></div>
@@ -160,6 +185,32 @@
         emailError.textContent = "An error occurred while checking the email.";
       });
     });
+
+
+
+     // Burger menu functionality
+     document.getElementById('menu-toggle').addEventListener('click', function () {
+            const menu = document.getElementById('menu-dropdown');
+            const isVisible = !menu.classList.contains('hidden');
+
+            menu.classList.toggle('hidden');
+
+            // Toggle the transition for visibility
+            menu.style.opacity = isVisible ? '0' : '1';
+            menu.style.pointerEvents = isVisible ? 'none' : 'auto';
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('menu-dropdown');
+            const button = document.getElementById('menu-toggle');
+
+            if (!button.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('hidden');
+                menu.style.opacity = '0';
+                menu.style.pointerEvents = 'none';
+            }
+        });
   </script>
 </body>
 </html>

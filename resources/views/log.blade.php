@@ -12,7 +12,7 @@
         </button>
         <div id="menu-dropdown"
             class="hidden absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-xl shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300">
-            <a href="#"
+            <a href="{{route('profile.edit')}}"
                 class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Profile</a>
             <a href="{{ route('home') }}"
                 class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Home</a>
