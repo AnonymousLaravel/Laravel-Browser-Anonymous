@@ -6,24 +6,25 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
     // Prova a ottenere la password da un token di reset
-   
+
     public function showResetForm($token)
     {
-        $mail = '';
-        $record = \DB::table('password_reset_tokens')
-        ->where('token', $token)
-        ->first();
+        $record = DB::table('password_reset_tokens')
+            ->where('token', $token)
+            ->first();
+
 
         return view('auth.password.reset-password', [
             'token' => $token,
-        'email' => $record->email ?? old('email', '')
-    ]);
+            'email' => $record->email ?? old('email', '')
+        ]);
     }
 
     public function reset(Request $request)
