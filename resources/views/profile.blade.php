@@ -1,216 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <meta name="csrf-token" content="{{ csrf_token() }}">  <!--  cross site request forgery token -->
-  <title>User Profile</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+@extends('layouts.manage')
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: var(--bg-color, #f0f2f5);
-      color: var(--text-color, #333);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+@section('content')
 
-    .profile-container {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 2rem;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 400px;
-    }
+<div class="absolute top-4 right-4 z-50 flex items-center justify-end gap-x-3">
+  
+  <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center p-0 rounded-full
+                  bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600
+                  transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <svg id="theme-icon-light" class="w-6 h-6 text-black dark:text-white hidden" fill="none" stroke="currentColor"
+      viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M12 3v1m0 16v1m9-9h-1M4 12H3 m15.364 6.364l-.707-.707 M6.343 6.343l-.707-.707 m12.728 0l-.707.707 M6.343 17.657l-.707.707" />
+    </svg>
+    <svg id="theme-icon-dark" class="w-6 h-6 text-black dark:text-white" fill="none" stroke="currentColor"
+      viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21 a9.003 9.003 0 008.354-5.646z" />
+    </svg>
+  </button>
 
-    h2 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+  <!-- Bottone menu -->
+  <div class="relative">
+    <button id="menu-toggle"
+      class="w-10 h-10 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+      <svg class="w-6 h-6 text-gray-800 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
 
-    form {
-      display: flex;
-      flex-direction: column;
-    }
+    <!-- Dropdown -->
+    <div id="menu-dropdown"
+      class="hidden absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300">
+      <a href="{{ route('home') }}"
+        class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Home</a>
+      <a href="{{ route('logs') }}"
+        class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Log</a>
+      <form method="POST" action="{{ route('logout') }}" class="m-0">
+        @csrf
+        <button type="submit"
+          class="w-full text-left px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Logout</button>
+      </form>
+    </div>
+  </div>
+</div>
 
-    label {
-      margin-top: 1rem;
-    }
 
-    input {
-      padding: 0.5rem;
-      margin-top: 0.25rem;
-      border: 1px solid var(--input-border, #ccc);
-      border-radius: 6px;
-      background-color: var(--input-bg, white);
-      color: inherit;
-    }
+  <div class="max-w-md mx-auto mt-16 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
+    Aggiorna il profilo
+    </h2>
 
-    button.btn {
-      margin-top: 1.5rem;
-      padding: 0.75rem;
-      background-color: var(--accent-color, #3498db);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+    @if(session('status'))
+    <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">
+    {{ session('status') }}
+    </div>
+  @endif
 
-    button.btn:hover {
-      background-color: #1c6dad;
-    }
+    <form method="POST" action="{{ route('profile.edit') }}" novalidate>
+    @csrf
+    @method('PATCH')
 
-    .error {
-      color: red;
-      font-size: 0.85rem;
-    }
-
-    .status-msg {
-      margin-top: 1rem;
-      color: green;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-    
- {{-- Dropdown Menu Button --}}
- <div class="absolute top-4 right-4 z-50">
-        <button id="menu-toggle"
-            class="w-10 h-10 p-2 rounded-full bg-white dark:bg-gray-800 shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-            <svg class="w-6 h-6 text-gray-800 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-        <div id="menu-dropdown"
-            class="hidden absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-xl shadow-lg z-50 opacity-0 pointer-events-none transition-all duration-300">
-            <a href="{{route('profile.edit')}}"
-                class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Profile</a>
-            <a href="{{ route('home') }}"
-                class="block px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">Home</a>
-            <form method="POST" action="{{ route('logout') }}" class="m-0">
-                @csrf
-                <button type="submit"
-                    class="w-full text-left px-4 py-2 text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                    Logout
-                </button>
-            </form>
-        </div>
+    {{-- Nome --}}
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 dark:text-gray-300 mb-1">Nome</label>
+      <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring
+          @error('name') border-red-500 @else border-gray-300 @enderror
+          dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+      @error('name')
+      <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+    @enderror
     </div>
 
-  <div class="profile-container">
-    <h2>Aggiorna il profilo</h2>
+    {{-- Email --}}
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 dark:text-gray-300 mb-1">Email</label>
+      <input id="email" name="email" type="email" value="{{ old('email', $user->email) }}" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring
+          @error('email') border-red-500 @else border-gray-300 @enderror
+          dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+      @error('email')
+      <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+    @enderror
+    </div>
 
-    <form id="profile-form">
-      <label for="name">Nome:</label>
-      <input type="text" id="name" name="name" required />
+    {{-- Vecchia password --}}
+    <div class="mb-4">
+      <label for="current_password" class="block text-gray-700 dark:text-gray-300 mb-1">
+      Password attuale
+      </label>
+      <input id="current_password" name="current_password" type="password" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring
+          @error('current_password') border-red-500 @else border-gray-300 @enderror
+          dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+      @error('current_password')
+      <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+    @enderror
+    </div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
-      <small id="email-error" class="error"></small>
+    {{-- Nuova password --}}
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 dark:text-gray-300 mb-1">
+      Nuova password
+      </label>
+      <input id="password" name="password" type="password" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring
+          @error('password') border-red-500 @else border-gray-300 @enderror
+          dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+      @error('password')
+      <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+    @enderror
+    </div>
 
-      <button type="submit" class="btn">Salva</button>
+    {{-- Conferma nuova password --}}
+    <div class="mb-6">
+      <label for="password_confirmation" class="block text-gray-700 dark:text-gray-300 mb-1">
+      Conferma nuova password
+      </label>
+      <input id="password_confirmation" name="password_confirmation" type="password" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring
+          dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
+    </div>
+
+    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded transition">
+      Salva modifiche
+    </button>
     </form>
-
-    <div id="status" class="status-msg"></div>
   </div>
-
-  <script>
-    // Pre-fill form (simulate pulling from localStorage or backend)
-    document.getElementById('name').value = localStorage.getItem('userName') || "";
-    document.getElementById('email').value = localStorage.getItem('userEmail') || "";
-
-    document.getElementById("profile-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const emailError = document.getElementById("email-error");
-      const status = document.getElementById("status");
-
-      emailError.textContent = "";
-      status.textContent = "";
-
-      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-      // Check email uniqueness
-      fetch("{{ route('profile.checkEmail') }}", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': csrfToken
-        },
-        body: JSON.stringify({ email: email })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Email Check Response:', data);
-        if (data.exists) {
-          emailError.textContent = "This email is already in use.";
-          return;
-        }
-
-        // Save profile
-        fetch("{{ route('profile.saveProfile') }}", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken
-          },
-          body: JSON.stringify({ name: name, email: email })
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Save Profile Response:', data);
-          if (data.success) {
-            localStorage.setItem('userName', name);
-            localStorage.setItem('userEmail', email);
-            status.textContent = "Profile updated successfully!";
-          } else {
-            status.textContent = "Failed to update profile.";
-          }
-        })
-        .catch(error => {
-          console.error('Error saving profile:', error);
-          status.textContent = "An error occurred while updating the profile.";
-        });
-      })
-      .catch(error => {
-        console.error('Error checking email:', error);
-        emailError.textContent = "An error occurred while checking the email.";
-      });
-    });
-
-
-
-     // Burger menu functionality
-     document.getElementById('menu-toggle').addEventListener('click', function () {
-            const menu = document.getElementById('menu-dropdown');
-            const isVisible = !menu.classList.contains('hidden');
-
-            menu.classList.toggle('hidden');
-
-            // Toggle the transition for visibility
-            menu.style.opacity = isVisible ? '0' : '1';
-            menu.style.pointerEvents = isVisible ? 'none' : 'auto';
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function (event) {
-            const menu = document.getElementById('menu-dropdown');
-            const button = document.getElementById('menu-toggle');
-
-            if (!button.contains(event.target) && !menu.contains(event.target)) {
-                menu.classList.add('hidden');
-                menu.style.opacity = '0';
-                menu.style.pointerEvents = 'none';
-            }
-        });
-  </script>
-</body>
-</html>
+@endsection

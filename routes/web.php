@@ -36,8 +36,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/check-email', [ProfileController::class, 'checkEmail'])->name('profile.checkEmail');
-    Route::post('/save-profile', [ProfileController::class, 'saveProfile'])->name('profile.saveProfile');
+    //Route::post('/check-email', [ProfileController::class, 'checkEmail'])->name('profile.checkEmail');
+    
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
 
     Route::get('/logs', [LogController::class, 'index'])->name('logs');
 

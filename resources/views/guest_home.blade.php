@@ -86,35 +86,4 @@
         </div>
     </div>
 
-    <script>
-        const btn = document.getElementById('theme-toggle');
-        const sunIcon = document.getElementById('theme-icon-light');
-        const moonIcon = document.getElementById('theme-icon-dark');
-
-        function syncIcons() {
-            const isDark = document.documentElement.classList.contains('dark');
-            sunIcon.style.display = isDark ? 'block' : 'none';
-            moonIcon.style.display = isDark ? 'none' : 'block';
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (saved === 'dark' || (!saved && prefersDark)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-
-            syncIcons();
-        });
-
-        btn.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            const nowDark = document.documentElement.classList.contains('dark');
-            localStorage.setItem('theme', nowDark ? 'dark' : 'light');
-            syncIcons();
-        });
-    </script>
 @endsection

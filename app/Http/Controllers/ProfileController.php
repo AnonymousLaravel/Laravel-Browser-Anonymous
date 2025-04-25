@@ -4,44 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    // Mostra la form con i dati correnti
     public function edit()
     {
-        $user = Auth::user();
-        return view('profile', compact('user'));
-    }
-
-    public function checkEmail(Request $request)
-    {
-        $request->validate(['email' => 'required|email']);
-        
-        $exists = User::where('email', $request->email)
-                    ->where('id', '!=', Auth::id()) // Exclude current user
-                    ->exists();
-                    
-        return response()->json(['exists' => $exists]);
-    }
-
-    public function saveProfile(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.Auth::id()
+        return view('profile', [
+            'user' => Auth::user(),
         ]);
+    }
 
-        try {
-            $user = Auth::user();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->save();
+    // Valida e salva i cambiamenti, poi redirect con status
+    public function update(Request $request)
+    {
+        $user = Auth::user();
 
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+        // Regole di validazione
+        $rules = [
+            'name'                 => 'required|string|max:255',
+            'email'                => 'required|email|unique:users,email,' . $user->id,
+            'current_password'     => 'required_with:password|current_password', 
+            'password'             => 'nullable|string|min:8|confirmed',
+        ];
+
+        $request->validate($rules);
+
+        // Aggiorna nome & email
+        $user->name  = $request->name;
+        $user->email = $request->email;
+
+        // Se ha inserito una nuova password, la cripto e la salva
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
         }
+
+        $user->save();
+
+        return redirect()
+               ->route('profile.edit')
+               ->with('status', 'Profilo aggiornato correttamente.');
     }
 }

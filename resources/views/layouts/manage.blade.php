@@ -15,9 +15,7 @@
 
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
-    <div class="container mx-auto p-4">
-        @yield('content')
-    </div>
+    @yield('content')
     <script src="{{ asset(path: 'js/js.js') }}" defer></script>
 </body>
 
