@@ -8,11 +8,12 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\LogController;
-use GuzzleHttp\Middleware;
 
+
+Route::redirect('/', '/login');
 
 //basica home
-Route::get('/', [GuestController::class, 'index'])->name('guest_home');
+Route::get('/guest', [GuestController::class, 'index'])->name('guest_home');
 
 
 Route::middleware('guest')->group(function () {
