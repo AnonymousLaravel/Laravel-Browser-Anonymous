@@ -8,6 +8,11 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\LogController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\ProfileController;
+use GuzzleHttp\Middleware;
+>>>>>>> 4b27a10e1b0aa711c581dc9b2049c3aee45746ac
 
 
 Route::redirect('/', '/login');
@@ -55,3 +60,8 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 
 // Salva nuova password
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/check-email', [ProfileController::class, 'checkEmail'])->name('profile.checkEmail');
+Route::post('/save-profile', [ProfileController::class, 'saveProfile'])->name('profile.saveProfile');
