@@ -8,12 +8,8 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\LogController;
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\ProfileController;
-use GuzzleHttp\Middleware;
->>>>>>> 4b27a10e1b0aa711c581dc9b2049c3aee45746ac
-
+use App\Http\Controllers\HomeController;
 
 Route::redirect('/', '/login');
 
@@ -36,12 +32,18 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/home', [SearchController::class, 'index'])->name('home');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    // Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+
+
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/check-email', [ProfileController::class, 'checkEmail'])->name('profile.checkEmail');
+    Route::post('/save-profile', [ProfileController::class, 'saveProfile'])->name('profile.saveProfile');
+
     Route::get('/logs', [LogController::class, 'index'])->name('logs');
 
     // cancella tutta la cronologia
     Route::delete('/logs/clear', [LogController::class, 'clear'])->name('logs.clear');
-    
+
     // elimina un singolo record
     Route::delete('/logs/{log}', [LogController::class, 'destroy'])->name('logs.delete');
 
@@ -61,7 +63,3 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 // Salva nuova password
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/check-email', [ProfileController::class, 'checkEmail'])->name('profile.checkEmail');
-Route::post('/save-profile', [ProfileController::class, 'saveProfile'])->name('profile.saveProfile');
