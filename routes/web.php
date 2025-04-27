@@ -11,7 +11,7 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 
-Route::redirect('/', '/login');
+Route::redirect('/', '/guest');
 
 //basica home
 Route::get('/guest', [GuestController::class, 'index'])->name('guest_home');
