@@ -11,6 +11,15 @@
 
     <!-- Il tuo CSS compilato -->
     <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
+    
+<script>
+  if (localStorage.getItem('theme') === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+</script>
 </head>
 
 
@@ -18,5 +27,6 @@
     @yield('content')
     <script src="{{ asset(path: 'js/js.js') }}" defer></script>
 </body>
+
 
 </html>
