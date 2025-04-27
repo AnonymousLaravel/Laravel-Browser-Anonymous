@@ -11,7 +11,7 @@
 <body>
   <div class="login-card">
     <div class="login-header">
-      <h1 class="login-title">RedMB - Anonymous</h1>
+      <h1 class="login-title">Faairu</h1>
       <h2 class="login-subtitle">Registrati</h2>
     </div>
 
