@@ -70,5 +70,5 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 =======
 # Laravel-Browser-Anonymous
-Browser PHP con Laravel Autori: ? e ? Tecnologie utilizzate: Laravel, PHP, SQL  🔹 Descrizione Questo progetto consiste nello sviluppo di un browser web personalizzato basato su PHP utilizzando il framework Laravel. L'obiettivo è creare un'applicazione che consenta agli utenti di navigare, gestire segnalibri, cronologia e impostazioni avanzate
+Browser PHP con Laravel Autori: Utility Tecnologie utilizzate: Laravel, PHP, SQL  🔹 Descrizione Questo progetto consiste nello sviluppo di un browser web personalizzato basato su PHP utilizzando il framework Laravel. L'obiettivo è creare un'applicazione che consenta agli utenti di navigare, gestire segnalibri, cronologia e impostazioni avanzate
 >>>>>>> 39e2df05ca76282d23922ce36223bbec91342e8b
